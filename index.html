@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>generateur de qr code</title>
+    <link rel="stylesheet" href="style.css"></link>
+</head>
+<body>
+    <section>
+        <label >Entrez un texte ou un lien</label>
+        <input type="text" class="qr_texte" onchange="generateur()">
+        <div class="qr_code"></div>
+    </section>
+
+    <!--code javascript-->
+    <script src="qrcode.min.js"></script>
+    <script type="text/javascript">
+        var qr_texte = document.querySelector(".qr_texte");
+        function generateur(){
+            var qrcode = document.querySelector(".qr_code");
+            qrcode.style.display="flex";
+            qrcode.innerHTML = "";
+            if(qr_texte.value.trim() !== ""){
+                var qr = new QRCode(qrcode, {
+                    text: qr_texte.value,
+                    width: 128,
+                    height: 128,
+                    colorDark : "#000000",
+                    colorLight : "#ffffff",
+                    correctLevel : QRCode.CorrectLevel.H
+                });
+                qr.makeCode(qr_texte.value);
+            } else {
+                alert("Veuillez entrer un texte ou un lien valide");
+            }
+            qr_texte.value="";
+        }
+    </script>
+</body>
+</html>
